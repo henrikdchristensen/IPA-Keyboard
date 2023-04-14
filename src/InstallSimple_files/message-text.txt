@@ -1,0 +1,1 @@
+This program allows you to write the danish phonetic alphabet faster through defined keys. The interface shows which letters that belong to which key.
