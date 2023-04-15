@@ -69,7 +69,7 @@ table = ttk.Treeview(root, columns=("hotkey", "unicode_char"),
 table.heading("hotkey", text="Hotkey")
 table.heading("unicode_char", text="Unicode-character")
 table.column("hotkey", width=100)
-table.column("unicode_char", width=100)
+table.column("unicode_char", width=110)
 
 # Add data to the table
 for key, special_char in KEY_MAPPINGS.items():
