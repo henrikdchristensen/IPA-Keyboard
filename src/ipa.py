@@ -8,37 +8,29 @@ import clipboard
 with open("key_mappings.json", "r") as f:
     KEY_MAPPINGS = json.load(f)
 
-# Create a dictionary to store the hotkey IDs
+# Dictionary to store the hotkey IDs
 hotkey_ids = {}
 
-# Define a function to insert the special character for a given key
-
-
+# Function to insert a special character
 def insert_special_char(key):
     if key in KEY_MAPPINGS:
         keyboard.write(KEY_MAPPINGS[key])
     else:
         keyboard.write(key)
 
-# Create a function to register a hotkey
-
-
+# Function to register a hotkey
 def register_hotkey(key):
     hotkey_id = keyboard.add_hotkey(
         key, insert_special_char, args=[key], suppress=True)
     hotkey_ids[key] = hotkey_id
 
-# Create a function to unregister a hotkey
-
-
+# Function to unregister a hotkey
 def unregister_hotkey(key):
     hotkey_id = hotkey_ids[key]
     keyboard.remove_hotkey(hotkey_id)
     del hotkey_ids[key]
 
-# Define a function to toggle the hotkeys on and off
-
-
+# Function to toggle the hotkeys on and off
 def toggle_hotkeys():
     global hotkeys_enabled
     hotkeys_enabled = not hotkeys_enabled
@@ -52,8 +44,6 @@ def toggle_hotkeys():
             unregister_hotkey(key)
 
 # Define a function to toggle the hotkeys on and off when Caps Lock key is pressed
-
-
 def on_off_toggle_hotkeys():
     toggle_hotkeys()
 
@@ -66,9 +56,9 @@ root.title("IPA key-mapper")
 hotkeys_enabled = True
 on_off_button = tk.Button(root, text="Hotkeys: ON", command=toggle_hotkeys,
                           padx=10, pady=10, font=("Helvetica", 16))
-# Create a helper label, to show the Caps lock is the hotkey to toggle the hotkeys on and off
 on_off_button.pack()
 
+# Create a helper label, to show the Caps lock is the hotkey to toggle the hotkeys on and off
 label = tk.Label(root, text="use caps lock to toggle hotkeys on/off",
                  font=("Helvetica", 10))
 label.pack()
@@ -91,44 +81,36 @@ table.configure(yscrollcommand=scrollbar.set)
 scrollbar.pack(side="right", fill="y")
 table.pack()
 
-# Create buttons to insert selected special character
+# Create a frame for each row of buttons
 buttons_frame = tk.Frame(root)
-# Define the maximum number of buttons on each row
+# Maximum number of buttons per row
 MAX_BUTTONS_PER_ROW = 17
-# Initialize a counter for the number of buttons in the current row
 button_count = 0
-# Initialize a variable to keep track of the current row frame
 current_row_frame = tk.Frame(buttons_frame)
+# Loop through the key mappings
 for key, special_char in KEY_MAPPINGS.items():
     # If the maximum number of buttons per row has been reached, create a new row frame
     if button_count == MAX_BUTTONS_PER_ROW:
-        # Pack the current row frame and create a new one
         current_row_frame.pack()
         current_row_frame = tk.Frame(buttons_frame)
-        # Reset the button count
         button_count = 0
     # Create the button and add it to the current row frame
     button = tk.Button(current_row_frame, text=special_char,
                        command=lambda k=key: insert_special_char(k),
                        padx=2, pady=2, font=("Helvetica", 13))
     button.pack(side=tk.LEFT)
-    # Increment the button count
     button_count += 1
 # Pack the final row frame
 current_row_frame.pack()
 buttons_frame.pack()
 
-# Create text widget
+# Create text field to enter text
 text = tk.Text(root, height=10, width=50, font=("Helvetica", 12))
 text.pack()
 
 # Create a button to clip the text field to the clipboard
-
-
 def clip_text():
     clipboard.copy(text.get("1.0", "end-1c"))
-
-
 clip_button = tk.Button(root, text="Clip to Clipboard", command=clip_text,
                         padx=10, pady=10, font=("Helvetica", 16))
 clip_button.pack()
