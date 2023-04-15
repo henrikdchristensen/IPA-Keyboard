@@ -1,59 +1,12 @@
+import json
 import tkinter as tk
 from tkinter import ttk
 import keyboard
 import clipboard
 
-# Define key mappings
-KEY_MAPPINGS = {
-    'a': '\u00E6',
-    'ctrl+a': '\u0061',
-    'ctrl+shift+a': '\u0251',
-    'b': '\u0062\u0325',
-    'd': '\u0064\u0325',
-    'ctrl+d': '\u00F0',
-    'e': '\u0065',
-    'ctrl+e': '\u0259',
-    'ctrl+shift+e': '\u0250',
-    'f': '\u0066',
-    'g': '\u0261\u030A',
-    'h': '\u0068',
-    'i': '\u0069',
-    'ctrl+shift+i': '\u026A',
-    'j': '\u006A',
-    'ctrl+j': '\u006A\u030A',
-    'k': '\u006B\u02B0',
-    'l': '\u006C',
-    'ctrl+l': '\u006C\u0325',
-    'm': '\u006D',
-    'n': '\u006E',
-    'ctrl+n': '\u014B',
-    'o': '\u006F',
-    'p': '\u0070\u02B0',
-    'r': '\u0281',
-    'ctrl+r': '\u0281\u0325',
-    's': '\u0073',
-    'ctrl+s': '\u0255',
-    't': '\u0074\u02E2',
-    'ctrl+t': '\u0074\u1D9D',
-    'u': '\u0075',
-    'v': '\u0076',
-    'w': '\u0077',
-    'y': '\u0079',
-    'ctrl+y': '\u028F',
-    'ø': '\u00F8',
-    'ctrl+ø': '\u0153',
-    'ctrl+shift+ø': '\u0276',
-    'æ': '\u025B',
-    'å': '\u0254',
-    'ctrl+å': '\u0252',
-    ':': '\u02D0',
-    '?': '\u02C0',
-    '<': '\u032F',
-    '|': '\u007C',
-    '\'': '\u02C8',
-    ',': '\u0329',
-    '-': '\u032F',
-}
+# Load the key mappings from the JSON file
+with open("key_mappings.json", "r") as f:
+    KEY_MAPPINGS = json.load(f)
 
 # Create a dictionary to store the hotkey IDs
 hotkey_ids = {}
@@ -132,8 +85,6 @@ table.column("ipa_char", width=100)
 for key, special_char in KEY_MAPPINGS.items():
     table.insert("", tk.END, values=(key, special_char))
 
-# Pack the table into the root window
-# Create a vertical scrollbar for the table
 # Create a vertical scrollbar for the table
 scrollbar = ttk.Scrollbar(root, orient="vertical", command=table.yview)
 table.configure(yscrollcommand=scrollbar.set)
