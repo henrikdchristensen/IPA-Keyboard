@@ -12,7 +12,7 @@ The 'toggle' key is the key which is used to toggle the mapping on and off. The 
 
 ### Example
 
-To map the key `a` to the symbol `ɠ`, the following line can be added to the `mappings.json` file:`
+To map the key `a` to the symbol `ɠ`, the following line can be added to the `mappings.json` file:
 
 `"a": "\u0260",`
 
