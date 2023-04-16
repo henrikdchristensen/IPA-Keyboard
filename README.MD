@@ -14,7 +14,7 @@ To map the key `a` to the symbol `ɠ`, the following line can be added to the `m
 
 `"a": "\u0260",`
 
-Please note the comma at the end of the line. Also note that in this case the `ɠ` is defined as a Unicode character, see `https://unicode-table.com/en/0260/`
+Please note the comma at the end of the line, which is required to separate the lines. Also note that in this case the `ɠ` is defined as a Unicode character, see `https://unicode-table.com/en/0260/`
 
 ## Releases
 
