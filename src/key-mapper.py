@@ -4,7 +4,7 @@ from tkinter import ttk
 import keyboard
 import clipboard
 
-# try to load the JSON file
+# Load the JSON file
 try:
     with open('mappings.json') as f:
         try:
@@ -12,15 +12,10 @@ try:
         except json.decoder.JSONDecodeError:
             print("Error: mappings.json file is not defined correctly!")
             input()
-        
 except FileNotFoundError:
     print("ERROR: mappings.json file not found!")
     input()
     
-
-# Dictionary to store the hotkey IDs
-hotkey_ids = {}
-
 # Function to insert a special character
 def insert_char(key):
     if key in KEY_MAPPINGS:
@@ -29,6 +24,7 @@ def insert_char(key):
         keyboard.write(key)
 
 # Function to register a hotkey
+hotkey_ids = {}
 def register_hotkey(key):
     hotkey_id = keyboard.add_hotkey(
         key, insert_char, args=[key], suppress=True)
@@ -56,7 +52,6 @@ def toggle_hotkeys():
 # Define a function to toggle the hotkeys on and off when Caps Lock key is pressed
 def on_off_toggle_hotkeys():
     toggle_hotkeys()
-
 
 # Create GUI
 root = tk.Tk()
