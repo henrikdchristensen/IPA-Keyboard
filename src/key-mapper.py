@@ -4,9 +4,19 @@ from tkinter import ttk
 import keyboard
 import clipboard
 
-# Load the key mappings from the JSON file
-with open("mappings.json", "r") as f:
-    KEY_MAPPINGS = json.load(f)
+# try to load the JSON file
+try:
+    with open('mappings.json') as f:
+        try:
+            KEY_MAPPINGS = json.load(f)
+        except json.decoder.JSONDecodeError:
+            print("Error: mappings.json file is not defined correctly!")
+            input()
+        
+except FileNotFoundError:
+    print("ERROR: mappings.json file not found!")
+    input()
+    
 
 # Dictionary to store the hotkey IDs
 hotkey_ids = {}
