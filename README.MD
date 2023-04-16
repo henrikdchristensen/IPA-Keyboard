@@ -8,6 +8,8 @@ The tool is developed for Windows, but it should also work on Linux and Mac.
 
 The mapping can be changed to any other mapping via the `mappings.json` file which can be opened in a standard text editor. To use special key modifiers please refer to the Python module `keyboard` (`https://github.com/boppreh/keyboard`).
 
+The 'toggle' key is the key which is used to toggle the mapping on and off. The 'hotkeys' are the keys to be mapped to the defined symbols.
+
 ### Example
 
 To map the key `a` to the symbol `ɠ`, the following line can be added to the `mappings.json` file:`

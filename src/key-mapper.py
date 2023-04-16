@@ -8,7 +8,9 @@ import clipboard
 try:
     with open('mappings.json') as f:
         try:
-            KEY_MAPPINGS = json.load(f)
+            KEYS = json.load(f)
+            TOGGLE = KEYS["toggle"]
+            HOTKEYS = KEYS["hotkeys"]
         except json.decoder.JSONDecodeError:
             print("Error: mappings.json file is not defined correctly!")
             input()
@@ -18,8 +20,8 @@ except FileNotFoundError:
     
 # Function to insert a special character
 def insert_char(key):
-    if key in KEY_MAPPINGS:
-        keyboard.write(KEY_MAPPINGS[key])
+    if key in HOTKEYS:
+        keyboard.write(HOTKEYS[key])
     else:
         keyboard.write(key)
 
@@ -42,11 +44,11 @@ def toggle_hotkeys():
     hotkeys_enabled = not hotkeys_enabled
     if hotkeys_enabled:
         on_off_button.config(text="Hotkeys: ON")
-        for key in KEY_MAPPINGS.keys():
+        for key in HOTKEYS.keys():
             register_hotkey(key)
     else:
         on_off_button.config(text="Hotkeys: OFF")
-        for key in KEY_MAPPINGS.keys():
+        for key in HOTKEYS.keys():
             unregister_hotkey(key)
 
 # Define a function to toggle the hotkeys on and off when Caps Lock key is pressed
@@ -64,7 +66,7 @@ on_off_button = tk.Button(root, text="Hotkeys: ON", command=toggle_hotkeys,
 on_off_button.pack()
 
 # Create a helper label, to show the Caps lock is the hotkey to toggle the hotkeys on and off
-label = tk.Label(root, text="Use caps lock to toggle hotkeys on/off\n(Note: Please turn off caps lock before starting this app)",
+label = tk.Label(root, text=f"Use {TOGGLE} to toggle hotkeys on/off",
                  font=("Helvetica", 8))
 label.pack()
 
@@ -77,7 +79,7 @@ table.column("hotkey", width=100)
 table.column("char", width=110)
 
 # Add data to the table
-for key, special_char in KEY_MAPPINGS.items():
+for key, special_char in HOTKEYS.items():
     table.insert("", tk.END, values=(key, special_char))
 
 # Create a vertical scrollbar for the table
@@ -93,7 +95,7 @@ MAX_BUTTONS_PER_ROW = 17
 button_count = 0
 current_row_frame = tk.Frame(buttons_frame)
 # Loop through the key mappings
-for key, special_char in KEY_MAPPINGS.items():
+for key, special_char in HOTKEYS.items():
     # If the maximum number of buttons per row has been reached, create a new row frame
     if button_count == MAX_BUTTONS_PER_ROW:
         current_row_frame.pack()
@@ -121,18 +123,18 @@ clip_button = tk.Button(root, text="Clip to Clipboard", command=clip_text,
 clip_button.pack()
 
 # Register hotkeys
-for key in KEY_MAPPINGS.keys():
+for key in HOTKEYS.keys():
     register_hotkey(key)
 
 # Register Caps Lock key as a toggle for hotkeys
-keyboard.add_hotkey('caps lock', on_off_toggle_hotkeys, suppress=True)
+keyboard.add_hotkey(TOGGLE, on_off_toggle_hotkeys, suppress=True)
 
 # Start GUI loop
 root.mainloop()
 
 # Unregister hotkeys
-for key in KEY_MAPPINGS.keys():
+for key in HOTKEYS.keys():
     unregister_hotkey(key)
 
 # Unregister Caps Lock key hotkey
-keyboard.remove_hotkey('caps lock')
+keyboard.remove_hotkey(TOGGLE)
