@@ -17,6 +17,7 @@ if os_name == 'Windows':
     if caps_lock_state:
         keyboard.press_and_release("caps lock")
 # Check if the operating system is macOS or Linux
+#TODO: Not tested on macOS and Linux
 elif os_name == 'Darwin' or os_name == 'Linux':
     print("OS: macOS/Linux")
     # Get the current state of the caps lock key
