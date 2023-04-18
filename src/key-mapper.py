@@ -11,12 +11,14 @@ os_name = platform.system()
 
 # Check if the operating system is Windows
 if os_name == 'Windows':
+    print("OS: Windows")
     # Get the current state of the caps lock key
     caps_lock_state = ctypes.windll.user32.GetKeyState(0x14) & 1
     if caps_lock_state:
         keyboard.press_and_release("caps lock")
 # Check if the operating system is macOS or Linux
 elif os_name == 'Darwin' or os_name == 'Linux':
+    print("OS: macOS/Linux")
     # Get the current state of the caps lock key
     caps_lock_state = keyboard.is_caps_lock()
     if caps_lock_state:
